@@ -9,7 +9,8 @@
       "title": "L1 Crescent Moon (replaces Sapphire)",
       "dest": "symbols/L1_crescent.png",
       "refs": [
-        "refs/old-sapphire.png"
+        "refs/old-sapphire.png",
+        "refs/style-L4.png"
       ],
       "aspect": "1:1",
       "size": "1K",
@@ -17,9 +18,9 @@
         512,
         512
       ],
-      "variants": 3,
-      "anchor": true,
-      "prompt": "Image 1 is an old symbol from our slot game. Use it only for framing, how much of the square the object fills, and level of finish. Do not keep its subject, shape, colours, gold metal or badge background.\n\nCreate a low-value slot symbol: a round matte obsidian disc with a subtle bevel, and a thin crescent moon engraved on it in flat polished-silver lines. A faint cool-grey rim around the disc. Flat and matte, low contrast, no glow, no gems, no gold. It must read instantly as a low-value symbol beside glowing premium ones. Centred, filling about 85% of a 1:1 frame.",
+      "variants": 2,
+      "anchor": false,
+      "prompt": "Image 1 is an old symbol from our slot game. Use it only for framing and scale; do not keep its subject, shape, colours, gold or badge. Image 2 is our approved Full Moon symbol from the same set: match its disc, bevel, silver rim, crater engraving and matte finish exactly so the four moons read as one set. The four moon symbols must be told apart at a glance at 96 px purely by how much of the moon is lit: crescent about 25%, half 50%, gibbous 75%, full 100%.\n\nCreate a low-value slot symbol on the same round matte obsidian disc: a crescent moon, about one quarter lit, drawn as a solid filled crescent of engraved polished silver with fine crater texture, bright against the dark disc. The unlit part of the moon is not drawn at all: no outline, no ring. Cool silver-grey rim, no copper, bronze or warm tones. Low contrast, no glow. Centred, filling about 85% of a 1:1 frame.",
       "append_master": true,
       "post": "key_green"
     },
@@ -30,9 +31,7 @@
       "dest": "symbols/L2_half.png",
       "refs": [
         "refs/old-emerald.png",
-        {
-          "job": "L1"
-        }
+        "refs/style-L4.png"
       ],
       "aspect": "1:1",
       "size": "1K",
@@ -40,10 +39,11 @@
         512,
         512
       ],
-      "prompt": "Image 1 is an old symbol from our slot game. Use it only for framing and scale; do not keep its subject, shape, colours, gold or badge. Image 2 is our approved new low symbol: match its disc size, bevel, engraving line weight and matte finish exactly so the lows read as one set.\n\nCreate a low-value slot symbol: a half moon with a hard, straight terminator line, engraved in flat polished silver on the same round matte obsidian disc. A faint blue-grey rim. Low contrast, no glow. Centred, filling about 85% of a 1:1 frame.",
+      "prompt": "Image 1 is an old symbol from our slot game. Use it only for framing and scale; do not keep its subject, shape, colours, gold or badge. Image 2 is our approved Full Moon symbol from the same set: match its disc, bevel, silver rim, crater engraving and matte finish exactly so the four moons read as one set. The four moon symbols must be told apart at a glance at 96 px purely by how much of the moon is lit: crescent about 25%, half 50%, gibbous 75%, full 100%.\n\nCreate a low-value slot symbol on the same round matte obsidian disc: a half moon. The left half is a solid filled half-disc of engraved polished silver with fine crater texture, cut by one perfectly straight vertical edge. The right half is not drawn at all: no outline, no extra lines. Cool silver-grey rim, no copper, bronze or warm tones. Low contrast, no glow. Centred, filling about 85% of a 1:1 frame.",
       "append_master": true,
-      "variants": 1,
-      "post": "key_green"
+      "variants": 2,
+      "post": "key_green",
+      "anchor": false
     },
     {
       "id": "L3",
@@ -52,9 +52,7 @@
       "dest": "symbols/L3_gibbous.png",
       "refs": [
         "refs/old-amethyst.png",
-        {
-          "job": "L1"
-        }
+        "refs/style-L4.png"
       ],
       "aspect": "1:1",
       "size": "1K",
@@ -62,10 +60,11 @@
         512,
         512
       ],
-      "prompt": "Image 1 is an old symbol from our slot game. Use it only for framing and scale; do not keep its subject, shape, colours, gold or badge. Image 2 is our approved new low symbol: match its disc, bevel, line weight and matte finish exactly.\n\nCreate a low-value slot symbol: a gibbous moon, about three-quarters lit, with a sharp curved terminator line, engraved in flat polished silver on the same round matte obsidian disc. A faint violet-grey rim. Low contrast, no glow. Centred, filling about 85% of a 1:1 frame.",
+      "prompt": "Image 1 is an old symbol from our slot game. Use it only for framing and scale; do not keep its subject, shape, colours, gold or badge. Image 2 is our approved Full Moon symbol from the same set: match its disc, bevel, silver rim, crater engraving and matte finish exactly so the four moons read as one set. The four moon symbols must be told apart at a glance at 96 px purely by how much of the moon is lit: crescent about 25%, half 50%, gibbous 75%, full 100%.\n\nCreate a low-value slot symbol on the same round matte obsidian disc: a gibbous moon. About three quarters of the moon is a solid filled shape of engraved polished silver with fine crater texture; the unlit sliver on the right is not drawn at all, leaving a curved terminator. No outline of the dark part, no inner circle. Cool silver-grey rim, no copper, bronze or warm tones. Low contrast, no glow. Centred, filling about 85% of a 1:1 frame.",
       "append_master": true,
-      "variants": 1,
-      "post": "key_green"
+      "variants": 2,
+      "post": "key_green",
+      "anchor": false
     },
     {
       "id": "L4",
@@ -184,9 +183,7 @@
       "dest": "symbols/SC_black_sun.png",
       "refs": [
         "refs/old-scatter.png",
-        {
-          "job": "L1"
-        }
+        "refs/style-H4.png"
       ],
       "aspect": "1:1",
       "size": "1K",
@@ -194,9 +191,9 @@
         512,
         512
       ],
-      "prompt": "Image 1 is an old scatter symbol from our slot game. Use it only for framing and level of finish. Do not keep the portrait, any face or person, the laurel wreath, the gold frame or the text banner. Image 2 is our approved new style: match its line weight and cel shading.\n\nCreate a scatter slot symbol: a perfectly black sun disc surrounded by a blazing crimson-and-orange corona of flame tendrils, with a thin bright ember ring where the disc meets the corona. Keep the whole corona inside the frame. Leave the bottom 20% of the frame empty for a SCATTER label we add in the game. No text in the image. Centred horizontally, 1:1 frame.",
+      "prompt": "Image 1 is an old scatter symbol from our slot game. Use it only for framing and level of finish. Do not keep the portrait, any face or person, the laurel wreath, the gold frame or the text banner. Image 2 is our approved premium symbol: match its line weight, cel shading and glow.\n\nCreate a scatter slot symbol: a perfectly black sun disc surrounded by a blazing crimson-and-orange corona of flame tendrils, with a thin bright ember ring where the disc meets the corona. It floats free: no silver disc, plate, frame, border or outer ring behind or around it, and it must not look like our round moon symbols. Keep the whole corona inside the frame. The bottom 20% of the frame stays plain empty background for a label we add in the game: do not draw a bar, banner or panel there. No text in the image. Centred horizontally, 1:1 frame.",
       "append_master": true,
-      "variants": 1,
+      "variants": 2,
       "post": "key_green"
     },
     {
