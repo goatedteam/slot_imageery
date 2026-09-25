@@ -134,6 +134,7 @@
   });
   const endWord = $('#endTitle .word');
   const endLetters = splitWord(endWord);
+  endLetters.slice(6).forEach((ch) => ch.classList.add('up')); // "UP!" in lime
 
   // decorative depth cards (scene 1 + end card)
   function decoCards(parent, specs) {
@@ -436,7 +437,7 @@
     heroStack: $('#heroStack'), heroText: $('#heroText'), heroShine: $('#heroShine'), heroTop: $('#heroTop'), echoes: [...document.querySelectorAll('.heroEcho')],
     heroSub: $('#heroSub'), heroLabel: $('#heroLabel'), heroPayout: $('#heroPayout'), flash: $('#flash'),
     endBrand: $('#endBrand'), endTitle: $('#endTitle'), endRow: $('#endRow'), endUnder: $('#endUnder'),
-    endCta: $('#endCta'), endLegal: $('#endLegal'), endBg: $('.end-bg'),
+    endCta: $('#endCta'), endBg: $('.end-bg'),
   };
 
   function render(t) {
@@ -813,7 +814,6 @@
     const pc = E('back.out(1.7)', prog(t, C.cta, 0.5));
     set(el.endCta, 'opacity', clamp((t - C.cta) / 0.12).toFixed(3));
     set(el.endCta, 'transform', `translateY(${((1 - pc) * 24).toFixed(2)}px) scale(${(0.9 + 0.1 * pc + 0.04 * fin).toFixed(4)})`);
-    set(el.endLegal, 'opacity', (0.9 * E('power2.out', prog(t, C.cta + 0.3, 0.5))).toFixed(3));
     set(el.endBg, 'opacity', (0.85 + 0.15 * fin).toFixed(3));
     endDeco.forEach(({ d, s }, i) => {
       const pin = E('expo.out', prog(t, T + 0.1 + i * 0.05, 0.9));

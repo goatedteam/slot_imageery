@@ -21,7 +21,7 @@ The picture is locked to the music: 150 BPM, so one beat is 0.4 s and one bar is
 | 8.0–10.4 | 2-bar build | One card per beat: 6, 14, 27, 39, 52, 71, 88. The readout climbs 0X → 17.2X → 35X → 90X → 240X and the paytable highlight turns lime |
 | 10.5–11.2 | Build peaks | Standoff: the camera pushes in on card 8 ("BEAT 88"), heartbeat pulses, and the card creeps over in slow motion |
 | **11.2** | **Drop** | Card 8 snaps to **97**. Flash, shockwave and sparks, then **1000X** slams in with MAX WIN, echoes, rays, confetti, and a payout count to $10,000.00 |
-| 12.8–15.0 | Final bar and final hit | A full-screen card flip reveals the end card: GOATED ORIGINALS, ORDER UP!, the winning run, "Now live. Play at goated.com", and 18+ · Please play responsibly |
+| 12.8–15.0 | Final bar and final hit | A full-screen card flip reveals the end card: GOATED ORIGINALS, ORDER UP!, "ORDER UP!" (with "UP!" in lime) and the winning run centred on the frame, and "Now live on Goated.com" |
 
 The UI is rebuilt from the screen recording using the game's sampled palette. The card-back goat mark is traced from the in-game card back ([`assets/goat.svg`](assets/goat.svg)).
 

@@ -179,24 +179,25 @@ canvas#fxBack, canvas#fxFront { position: absolute; left: 0; top: 0; width: 1920
 
 /* ---------- end card ---------- */
 .end-bg { position: absolute; inset: 0; will-change: opacity; background: radial-gradient(70% 70% at 50% 52%, #221f32 0%, #16141f 45%, #0b0a10 100%); }
-.end-bg::after { content: ''; position: absolute; left: 360px; top: 420px; width: 1200px; height: 700px; background: radial-gradient(closest-side, rgba(213,251,35,.16), rgba(213,251,35,0)); }
+.end-bg::after { content: ''; position: absolute; left: 360px; top: 190px; width: 1200px; height: 700px; background: radial-gradient(closest-side, rgba(213,251,35,.16), rgba(213,251,35,0)); }
 .end-grid { opacity: .8; will-change: transform; }
 #endDeco { position: absolute; inset: 0; }
-#endBrand { left: 0; top: 150px; width: 1920px; justify-content: center; }
-#endTitle { position: absolute; left: 0; top: 222px; width: 1920px; display: flex; justify-content: center; }
+#endBrand { left: 0; top: 214px; width: 1920px; justify-content: center; }
+/* title + card row are centred as one block on the frame (298 → 782, centre 540) */
+#endTitle { position: absolute; left: 0; top: 298px; width: 1920px; display: flex; justify-content: center; }
 #endTitle .mask { height: 290px; overflow: hidden; padding: 0 8px; }
 #endTitle .word { color: #fff; }
-#endRow { position: absolute; left: 551px; top: 572px; width: 818px; height: 150px; }
+#endTitle .word .up { color: var(--lime); }
+#endRow { position: absolute; left: 551px; top: 638px; width: 818px; height: 150px; }
 #endCards { position: absolute; inset: 0; }
 .eslot { position: absolute; top: 0; width: 90px; height: 125px; perspective: 460px; }
 .eslot .card .face { border-radius: 8px; }
 .eslot .face.back svg { width: 36px; height: 29px; }
 .eslot .face.front .num { font-size: 70px; }
 #endUnder { position: absolute; left: 0; top: 139px; height: 5px; width: 0; border-radius: 3px; background: var(--lime); box-shadow: 0 0 14px rgba(213,251,35,.55); }
-#endCta { position: absolute; left: 0; top: 786px; width: 1920px; display: flex; justify-content: center; }
+#endCta { position: absolute; left: 0; top: 828px; width: 1920px; display: flex; justify-content: center; }
 #endCta .ctaIn { font-size: 48px; font-weight: 500; letter-spacing: .01em; color: #e9e7ef; padding: 18px 40px; border-radius: 999px; background: rgba(33,29,44,.7); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.12); white-space: nowrap; }
 #endCta b { font-weight: 600; color: var(--lime); }
-#endLegal { position: absolute; left: 0; bottom: 46px; width: 1920px; text-align: center; font-size: 20px; font-weight: 500; letter-spacing: .06em; color: #7f7c8b; }
 
 /* ---------- finishing ---------- */
 /* film grain is added in ffmpeg after motion blur (render.mjs); the canvas is only used in live preview */
