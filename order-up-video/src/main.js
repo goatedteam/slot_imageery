@@ -24,7 +24,7 @@
   const WORD_GAP = 30; // space between ORDER and UP! while the cards spell the title
   const slotX = (i) => ROW_X + i * (CW + GAP);
   const ROW_CX = ROW_X + (8 * CW + 7 * GAP) / 2;
-  const CARD8_X = slotX(7) + CW / 2, CARD8_Y = ROW_Y + CH / 2;
+  const CARD8_X = slotX(7) + CW / 2;
   const PAY_CELL = 1050 / 8;
   const titleRight = (i) => (i < 0 ? 0 : slotX(i) + CW + (i >= 5 ? WORD_GAP : 0) - ROW_X);
   const gameRight = (i) => (i < 0 ? 0 : slotX(i) + CW - ROW_X);
@@ -851,16 +851,10 @@
   // =====================================================================
   // boot
   // =====================================================================
-  function place() {
-    // static world positions (translate(-50%,-50%) handled per frame)
-    for (const e of [el.chip, el.tag, el.readout, el.beat88, el.capPick, el.capBet]) { e.style.left = '0px'; e.style.top = '0px'; }
-  }
-
   async function boot() {
     await document.fonts.load('330px Schabo');
     await Promise.all(['400', '500', '600', '700'].map((w) => document.fonts.load(`${w} 20px Geist`)));
     await document.fonts.ready;
-    place();
     buildHole();
     window.__seek = (t) => render(t);
     window.__subframes = subframesAt;

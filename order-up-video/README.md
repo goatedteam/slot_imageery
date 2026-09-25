@@ -2,7 +2,7 @@
 
 A 15-second, 1920×1080, 60 fps motion-graphics spot announcing **Order Up**, the new Goated Original.
 
-**Final video:** [`dist/order-up-launch-1080p60.mp4`](dist/order-up-launch-1080p60.mp4). Poster frames are in [`dist/`](dist).
+**Final video:** [`dist/order-up-launch-1080p60.mp4`](dist/order-up-launch-1080p60.mp4). Poster frames for thumbnails: [`dist/poster-1000x.jpg`](dist/poster-1000x.jpg), [`dist/poster-title.jpg`](dist/poster-title.jpg), [`dist/poster-endcard.jpg`](dist/poster-endcard.jpg).
 
 The spot is built as code: an HTML page whose every frame is a pure function of time, rendered frame by frame in headless Chromium with real sub-frame motion blur, then cut to the supplied music track.
 
