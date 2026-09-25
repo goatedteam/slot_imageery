@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Order Up Launch</title>
+<meta name="viewport" content="width=1920">
+<link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Goated horns, traced from the in-game card back -->
+    <symbol id="goat" viewBox="170 175 710 570">
+      <g fill="currentColor" stroke="currentColor" stroke-width="14" stroke-linejoin="round">
+        <path d="M285,193 L528,432 L528,726 L442,664 L386,426 L292,324 L257,361 L295,468 L188,355 Z"/>
+        <path d="M768,193 L859,355 L757,462 L796,361 L757,324 L597,497 L592,366 Z"/>
+      </g>
+    </symbol>
+    <symbol id="cursor" viewBox="0 0 32 32">
+      <path d="M5 3 L5 25 L10.6 19.8 L14.4 28.4 L18.4 26.6 L14.7 18.2 L22.4 18.2 Z" fill="#fff" stroke="#0b0a10" stroke-width="1.8" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="coin" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="11" fill="#2775ca"/>
+      <circle cx="12" cy="12" r="8.2" fill="none" stroke="#fff" stroke-width="1.3" stroke-opacity=".55"/>
+      <text x="12" y="16.2" text-anchor="middle" font-family="Geist" font-weight="700" font-size="11.5" fill="#fff">$</text>
+    </symbol>
+  </defs>
+</svg>
+
+<div id="stage">
+  <div id="planes">
+
+    <!-- ============ MAIN PLANE (scenes 1–5) ============ -->
+    <div id="mainPlane" class="plane">
+      <div id="bg">
+        <div class="bg-base"></div>
+        <div class="bg-orb orb-lime"></div>
+        <div class="bg-orb orb-violet"></div>
+        <div class="bg-grid"></div>
+      </div>
+
+      <div id="viewport">
+        <div id="camera">
+          <!-- Game window -->
+          <div id="uiWin"></div>
+
+          <div id="sidebar">
+            <div class="sb-item tabs"><div class="tab active">Manual</div><div class="tab">Auto</div></div>
+            <div class="sb-item label-row" style="top:118px"><span>Bet Amount <i class="info">i</i></span><span class="muted">10.00 USD</span></div>
+            <div class="sb-item input" style="top:148px">
+              <svg class="coin"><use href="#coin"/></svg><span class="val">10</span>
+              <span class="mini">½</span><span class="mini">2×</span>
+            </div>
+            <div class="sb-item label-row" style="top:226px"><span>Tiles</span></div>
+            <div class="sb-item tiles" style="top:254px">
+              <div id="tileHi"></div>
+              <div class="tile">3</div><div class="tile">4</div><div class="tile">5</div><div class="tile">6</div><div class="tile">7</div><div class="tile">8</div>
+            </div>
+            <div class="sb-item label-row" style="top:342px"><span>Profit on Win</span><span class="muted" id="profitUsd">0.00 USD</span></div>
+            <div class="sb-item input" style="top:372px"><svg class="coin"><use href="#coin"/></svg><span class="val" id="profitVal">0.00</span></div>
+            <div class="sb-item betbtn" id="betBtn" style="top:462px"><span>Bet</span><div id="ripple"></div></div>
+            <div class="sb-item footer">
+              <div class="icons"><i></i><i></i><i></i><i></i><i></i></div>
+              <span>Provably Fair</span>
+            </div>
+          </div>
+
+          <div id="pills"></div>
+
+          <!-- world-anchored type -->
+          <div id="titleChip" class="chip"><svg><use href="#goat"/></svg><span>A new Goated Original</span></div>
+          <div id="titleTag">Pick 3 to 8 cards. Get paid when they rise in order.</div>
+          <div id="captions">
+            <div class="cap" id="capPick"><div class="capIn">PICK <em>3 TO 8</em> CARDS</div></div>
+            <div class="cap" id="capBet"><div class="capIn">HIT <em>BET</em></div></div>
+          </div>
+          <div id="readout"><div id="readoutIn">17.2X</div></div>
+          <div id="beat88">BEAT 88</div>
+
+          <div id="cards"></div>
+          <div id="underline"></div>
+
+          <div id="paytable">
+            <div id="payHi"></div>
+          </div>
+
+          <div id="cursorWrap"><div id="clickRing"></div><svg id="cursorSvg"><use href="#cursor"/></svg></div>
+        </div>
+      </div>
+
+      <!-- Scene 1: NEW / ORIGINAL / RELEASED -->
+      <div id="s1">
+        <div id="s1bg"><div class="s1grid"></div></div>
+        <div id="s1deco"></div>
+        <div id="s1brand" class="brandline"><svg><use href="#goat"/></svg><span>Goated Originals</span></div>
+        <div id="s1text">
+          <div class="s1row" id="row1"><div class="tagbg"></div><div class="mask"><div class="word">NEW</div></div></div>
+          <div class="s1row" id="row2"><div class="mask"><div class="word">ORIGINAL</div></div></div>
+          <div class="s1row" id="row3"><div class="mask"><div class="word">RELEASED</div></div></div>
+        </div>
+      </div>
+
+      <div id="focusVignette"></div>
+      <canvas id="fxBack" width="1920" height="1080"></canvas>
+      <div id="scrim"></div>
+      <div id="hero">
+        <div id="heroRays"></div>
+        <div id="heroGlow"></div>
+        <div id="heroTop"><span>Max win</span></div>
+        <div id="heroStack">
+          <div class="heroEcho">1000X</div>
+          <div class="heroEcho">1000X</div>
+          <div class="heroEcho">1000X</div>
+          <div id="heroText">1000X</div>
+          <div id="heroShine">1000X</div>
+        </div>
+        <div id="heroSub">
+          <div id="heroLabel">Payout</div>
+          <div id="heroPayout">$10,000.00</div>
+        </div>
+      </div>
+      <canvas id="fxFront" width="1920" height="1080"></canvas>
+      <div id="flash"></div>
+    </div>
+
+    <!-- ============ END PLANE (scene 6) ============ -->
+    <div id="endPlane" class="plane">
+      <div class="end-bg"></div>
+      <div class="bg-grid end-grid"></div>
+      <div id="endDeco"></div>
+      <div id="endBrand" class="brandline"><svg><use href="#goat"/></svg><span>Goated Originals</span></div>
+      <div id="endTitle"><div class="mask"><div class="word">ORDER UP!</div></div></div>
+      <div id="endRow"><div id="endCards"></div><div id="endUnder"></div></div>
+      <div id="endCta"><div class="ctaIn">Now live. Play at <b>goated.com</b></div></div>
+      <div id="endLegal">18+ &nbsp;·&nbsp; Please play responsibly</div>
+    </div>
+  </div>
+
+  <canvas id="grain" width="960" height="540"></canvas>
+  <div id="vignette"></div>
+  <div id="startHint">Click to play with sound</div>
+</div>
+
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script src="src/cues.js"></script>
+<script src="src/main.js"></script>
+</body>
+</html>
