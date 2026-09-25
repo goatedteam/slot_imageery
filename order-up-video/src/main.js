@@ -432,7 +432,7 @@
     capPick: $('#capPick'), capPickIn: $('#capPick .capIn'), capBet: $('#capBet'), capBetIn: $('#capBet .capIn'),
     readout: $('#readout'), readoutIn: $('#readoutIn'), beat88: $('#beat88'),
     cursor: $('#cursorWrap'), cursorSvg: $('#cursorSvg'), clickRing: $('#clickRing'),
-    s1: $('#s1'), s1brand: $('#s1brand'), s1text: $('#s1text'),
+    s1: $('#s1'), s1text: $('#s1text'),
     focus: $('#focusVignette'), scrim: $('#scrim'), hero: $('#hero'), heroRays: $('#heroRays'), heroGlow: $('#heroGlow'),
     heroStack: $('#heroStack'), heroText: $('#heroText'), heroShine: $('#heroShine'), heroTop: $('#heroTop'), echoes: [...document.querySelectorAll('.heroEcho')],
     heroSub: $('#heroSub'), heroLabel: $('#heroLabel'), heroPayout: $('#heroPayout'), flash: $('#flash'),
@@ -510,8 +510,6 @@
     const lime = E('power2.inOut', prog(t, 1.1, 0.14));
     set(rows[1].word, 'color', mixHex('#ffffff', '#d5fb23', lime));
     set(rows[2].word, 'color', mixHex('#ffffff', '#d5fb23', lime));
-    set(el.s1brand, 'opacity', (E('power2.out', prog(t, 0.05, 0.4)) * (1 - prog(t, C.zoomStart, 0.12))).toFixed(3));
-    set(el.s1brand, 'transform', `translateY(${((1 - E('expo.out', prog(t, 0.05, 0.6))) * -24).toFixed(2)}px)`);
 
     s1Deco.forEach(({ d, s }, i) => {
       const pin = E('expo.out', prog(t, 0.02 + i * 0.05, 0.9));

@@ -138,7 +138,7 @@ body { width: 1920px; height: 1080px; overflow: hidden; }
 .s1grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.05) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(255,255,255,.05) 1.5px, transparent 1.5px); background-size: 72px 72px; background-position: -84px -84px;
   -webkit-mask-image: radial-gradient(60% 62% at 50% 50%, #000 0%, rgba(0,0,0,.35) 60%, transparent 100%); mask-image: radial-gradient(60% 62% at 50% 50%, #000 0%, rgba(0,0,0,.35) 60%, transparent 100%); }
 #s1deco { position: absolute; inset: 0; }
-#s1text { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding-top: 34px; }
+#s1text { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
 /* Schabo uses typo metrics: caps sit 0.1em above the line-box centre.
    line-height = box height + 0.2em centres the caps inside the box. */
 .s1row { position: relative; height: 290px; display: flex; justify-content: center; }
@@ -149,7 +149,6 @@ body { width: 1920px; height: 1080px; overflow: hidden; }
 .tagbg { position: absolute; left: -30px; right: -30px; top: 2px; bottom: 2px; background: var(--lime); transform-origin: 0 50%; border-radius: 6px; }
 .brandline { position: absolute; display: flex; align-items: center; gap: 14px; font-size: 26px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #d9d6e2; white-space: nowrap; }
 .brandline svg { width: 40px; height: 32px; color: var(--lime); }
-#s1brand { left: 0; top: 34px; width: 1920px; justify-content: center; }
 
 .deco { position: absolute; width: 150px; height: 208px; border-radius: 14px; }
 .deco.up { background: var(--card); color: var(--ink); font-family: 'Schabo'; font-size: 112px; display: grid; place-items: center; }
