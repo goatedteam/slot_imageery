@@ -69,7 +69,6 @@
   const L = {
     title: split($('#title .word')),
     tag: split($('#tag .word')),
-    introFlip: split($('#introFlip .word')),
     callA: split($('#callA')),
     callB: split($('#callB')),
     one: split($('#hdrOne .word')),
@@ -77,7 +76,7 @@
     end: split($('#endTitle .word')),
   };
   const el = {};
-  for (const id of ['bgIntro', 'bgUI', 'bgWin', 'bgEnd', 'rays', 'intro', 'chip', 'title', 'tag', 'tagBg', 'introFlip', 'ui', 'hdrCall', 'hdrStreak', 'streakLabel',
+  for (const id of ['bgIntro', 'bgUI', 'bgWin', 'bgEnd', 'rays', 'intro', 'chip', 'title', 'tag', 'tagBg', 'ui', 'hdrCall', 'hdrStreak', 'streakLabel',
     'mult', 'multEcho', 'hdrOne', 'panel', 'dots', 'btnHeads', 'btnTails', 'cashout', 'cashFill', 'cashAmt', 'dim', 'tap', 'win', 'winTitle', 'winAmt',
     'winPill', 'winRow', 'end', 'logo', 'endTitle', 'cta', 'legal', 'flash']) el[id] = document.getElementById(id);
   el.cashLbl = $('#cashout .lbl');
@@ -197,7 +196,7 @@
   // the flip schedule lives in cues.js, shared with the sound design
   const { lands: LANDS, dur: DUR, start: START, target: TARGET } = C.toss;
   const SLOT = { x: 540, y: 320 + 270, R: 140 };
-  const INTRO = { x: 540, y: 775, R: 175 };
+  const INTRO = { x: 540, y: 904, R: 205 };
 
   const warp = C.warp;
 
@@ -209,7 +208,7 @@
       if (t < C.coinUp) return null;
       const y = lerp(H + 260, INTRO.y, outCubic(p)) + (t > C.coinLand ? -10 * bump(prog(t, C.coinLand, 0.18)) : 0);
       const theta = lerp(-5 * TAU, 0, outQuart(p)) + (t > C.coinLand ? 0.12 * Math.exp(-(t - C.coinLand) * 9) * Math.sin((t - C.coinLand) * 30) : 0);
-      const R = INTRO.R * lerp(1.25, 1, outCubic(p));
+      const R = INTRO.R * lerp(1.25, 1, outCubic(p)) * (1 + 0.06 * decay(t, C.burst, 9)); // pulses on the snare
       return { x: INTRO.x, y, R, theta, ring: 0, shadow: null };
     }
     // fly from the intro into the panel slot
@@ -319,8 +318,6 @@
     set(el.tagBg, 'transform', `skewX(-12deg) scaleX(${pt.toFixed(4)})`);
     set(el.tag, 'transform', center(el.tag, `scale(${(1 + 0.1 * decay(t, C.released, 7)).toFixed(4)})`));
     letters(L.tag, C.released - 0.02, 0.022, 0.45);
-    slam(L.introFlip, C.coinflip - 0.04, 0.03, 0.42);
-    set(el.introFlip, 'transform', `scale(${(1 + 0.05 * decay(t, C.coinflip + 0.25, 8)).toFixed(4)})`);
   }
 
   function renderUI(t) {
@@ -469,13 +466,13 @@
     const starA = (1 - smooth(prog(t, C.toUI - 0.05, 0.3))) + smooth(prog(t, C.end, 0.4));
     if (starA > 0.01) for (const s of STARS) drawStar(fxB, s.x, s.y, s.s * (0.6 + 0.4 * Math.sin(t * s.sp + s.ph)), starA * (0.35 + 0.35 * Math.sin(t * s.sp * 1.3 + s.ph)), s.lime ? '213,251,35' : '255,255,255');
 
-    // ring burst behind COINFLIP!
-    const pr = prog(t, C.coinflip - 0.02, 0.6);
+    // ring burst from the coin on the snare
+    const pr = prog(t, C.burst - 0.02, 0.6);
     if (pr > 0 && pr < 1 && t < C.toUI + 0.2) {
       fxB.save();
       fxB.strokeStyle = `rgba(213,251,35,${(0.9 * (1 - pr)).toFixed(3)})`;
       fxB.lineWidth = 10 * (1 - pr) + 1.5;
-      fxB.beginPath(); fxB.arc(INTRO.x, INTRO.y, INTRO.R * (1.05 + 1.3 * outCubic(pr)), 0, TAU); fxB.stroke();
+      fxB.beginPath(); fxB.arc(INTRO.x, INTRO.y, INTRO.R * (1.05 + 1.0 * outCubic(pr)), 0, TAU); fxB.stroke();
       fxB.restore();
     }
 
@@ -559,7 +556,7 @@
   }
 
   // camera shake on the hits
-  const HITS = [[C.title, 6, 9], [C.released, 4, 10], [C.coinLand, 7, 9], [C.coinflip, 9, 8], ...LANDS.slice(0, 9).map((l) => [l, 2.5, 12]), [C.tenth, 9, 7], [C.rehit, 4, 10], [C.bigWin, 14, 5], [C.end + 0.5, 4, 9]];
+  const HITS = [[C.title, 6, 9], [C.released, 4, 10], [C.coinLand, 7, 9], [C.burst, 6, 9], ...LANDS.slice(0, 9).map((l) => [l, 2.5, 12]), [C.tenth, 9, 7], [C.rehit, 4, 10], [C.bigWin, 14, 5], [C.end + 0.5, 4, 9]];
   function shake(t) {
     let a = 0;
     for (const [t0, amp, k] of HITS) a += amp * decay(t, t0, k);
@@ -584,7 +581,7 @@
 
   // motion-blur budget (render.mjs averages this many sub-frames per frame)
   const BLUR = [
-    [C.coinUp - 0.02, C.coinLand + 0.15, 10], [C.coinflip - 0.05, C.coinflip + 0.25, 8], [C.toUI - 0.05, C.toUI + 0.5, 8],
+    [C.coinUp - 0.02, C.coinLand + 0.15, 10], [C.burst - 0.05, C.burst + 0.25, 8], [C.toUI - 0.05, C.toUI + 0.5, 8],
     ...LANDS.map((l, k) => [START[k] - 0.02, l + 0.12, k === 9 ? 10 : 10]),
     [C.rehit - 0.02, C.rehit + 0.3, 6], [C.bigWin - 0.02, C.end, 6], [C.end - 0.05, C.end + 0.6, 10],
     [-1, 0.2, 6], [C.released - 0.05, C.released + 0.2, 6],

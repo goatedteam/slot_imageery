@@ -8,12 +8,12 @@ An 18-second (18.35 s), 1080×1350 (4:5), 60 fps launch video for the Goated Ori
 
 - **Synced to Love$ick.** Every scene change, coin landing and hit falls on the track's beat grid (see the beat map below).
 - **Spacing.** Each scene is laid out on the 1080×1350 frame with even gaps between its blocks:
-  - Opening: the chip, NEW ORIGINAL, RELEASED, the coin and COINFLIP! are stacked top to bottom without touching.
+  - Opening: COINFLIP! is gone. The chip, NEW ORIGINAL, RELEASED and a bigger coin are stacked with even gaps, centred a touch above the middle.
   - Game: the header (CALL IT. FLIP IT. → the streak multiplier → ONE MORE…) has its own band above the panel. The tossed coin never reaches the header text.
   - BIG WIN: the top coin, title, amount, pill and the row of ten coins are stacked evenly.
   - End card: GOATED, the coin, COINFLIP and the button are spaced evenly. The button moves up into the gap the removed line left.
 - **Titles:** every title is set in Schabo Condensed at its true weight, the same as in the Order Up video. None has a purple drop shadow:
-  - COINFLIP!, BIG WIN! and the end-card COINFLIP are flat lime.
+  - BIG WIN! and the end-card COINFLIP are flat lime.
   - NEW ORIGINAL, CALL IT. FLIP IT., ONE MORE… and the win amount are flat white.
   - Only the climbing multiplier keeps a 3D edge, in darker lime, like the 1000× in Order Up.
 - **End card:** the "Call it. Flip it. Chain it up to 1,027,604×" line is gone. "Play now on goated.com →" and "18+ · Play responsibly" stay.
@@ -36,7 +36,7 @@ The music is Love$ick from 0:46.754 to 1:03.756, with a two-beat freeze cut in a
 | **0.00** | bar 1 | NEW ORIGINAL rises in letter by letter over a scrolling lime grid, under the GOATED ORIGINALS chip |
 | 0.67 | beat | the RELEASED tag wipes in |
 | 1.01 → 1.69 | off-beats | the coin launches from below, spinning, and lands heads-up with a glint |
-| 2.02 | beat | COINFLIP! slams in with a ring burst |
+| 2.02 | beat | the coin pulses and a ring bursts from it |
 | **2.70** | bar 2 | the opening clears, the game panel rises and the coin flies into its slot |
 | 3.37 / 4.04 | beats | CALL IT. / FLIP IT. |
 | **5.39** | bar 3 | first flip lands: streak 1 / 20, 1.96×, Cash Out lights up |

@@ -22,12 +22,12 @@
     bar: BAR,
     hold: HOLD,
 
-    // 1 — NEW ORIGINAL RELEASED, the coin lands, COINFLIP!
+    // 1 — NEW ORIGINAL RELEASED, the coin lands and rings out on the snare
     title: bar(0),            // section downbeat
     released: at(0, 1),       // snare
     coinUp: at(0, 1, 1),      // coin launches from below
     coinLand: at(0, 2, 1),    // lands on the 8th before the snare
-    coinflip: at(0, 3),       // snare: ring burst + COINFLIP!
+    burst: at(0, 3),          // snare: a ring bursts from the coin
 
     // 2 — the game UI
     toUI: bar(1),
