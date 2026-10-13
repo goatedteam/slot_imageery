@@ -1,0 +1,120 @@
+@font-face { font-family: 'Schabo'; src: url('../assets/fonts/SchaboCondensed.otf') format('opentype'); font-display: block; }
+@font-face { font-family: 'Geist'; src: url('../assets/fonts/Geist-Medium.otf') format('opentype'); font-weight: 500; font-display: block; }
+@font-face { font-family: 'Geist'; src: url('../assets/fonts/Geist-SemiBold.otf') format('opentype'); font-weight: 600; font-display: block; }
+@font-face { font-family: 'Geist'; src: url('../assets/fonts/Geist-Bold.otf') format('opentype'); font-weight: 700; font-display: block; }
+
+:root {
+  --lime: #d5fb23;
+  --purple: #9a4cf0;
+  --gold: #f4c20d;
+  --ink: #14121c;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: #000; }
+body { width: 1080px; height: 1350px; overflow: hidden; }
+#stage { position: relative; width: 1080px; height: 1350px; overflow: hidden; background: #0b0910; color: #fff; font-family: 'Geist', sans-serif; font-weight: 600; -webkit-font-smoothing: antialiased; }
+.bg, .scene, #fxBack, #fxFront, #flash, #vignette { position: absolute; left: 0; top: 0; width: 1080px; height: 1350px; }
+.scene { pointer-events: none; }
+
+/* Schabo uses typo metrics: caps sit 0.1em above the line-box centre, so every
+   Schabo box sets line-height = box height + 0.2em to centre its caps. */
+.mask { position: absolute; left: 0; width: 1080px; overflow: hidden; display: flex; justify-content: center; }
+.word { font-family: 'Schabo'; letter-spacing: .01em; white-space: nowrap; }
+.word .ch { display: inline-block; }
+.extrude { color: #fff; text-shadow: 0 1px 0 #dcd9e3, 0 2px 0 #cdc9d6, 0 3px 0 #bdb8c8, 0 4px 0 #aea9bb, 0 5px 0 #a09aae, 0 6px 0 #918ba1, 0 7px 0 #837c94, 0 16px 26px rgba(0,0,0,.5); }
+.lime-purple { color: var(--lime); text-shadow: 0 2px 0 #9447f4, 0 4px 0 #8a3ced, 0 6px 0 #7f33e3, 0 8px 0 #742bd6, 0 10px 0 #6924c8, 0 12px 0 #5e1eba, 0 14px 0 #5419ab, 0 24px 34px rgba(0,0,0,.55); }
+.mult { font-family: 'Schabo'; color: var(--lime); letter-spacing: .01em; white-space: nowrap; text-shadow: 0 2px 0 #bfe016, 0 4px 0 #a8c60f, 0 6px 0 #91ab08, 0 8px 0 #7a9002, 0 10px 0 #667800, 0 0 50px rgba(213,251,35,.35); }
+
+/* ---------- backgrounds ---------- */
+#bgIntro { background:
+  radial-gradient(70% 45% at 50% 0%, rgba(132,64,236,.62), rgba(132,64,236,0) 100%),
+  radial-gradient(60% 40% at 72% 96%, rgba(196,222,24,.30), rgba(196,222,24,0) 100%),
+  radial-gradient(50% 35% at 18% 88%, rgba(160,190,20,.14), rgba(160,190,20,0) 100%),
+  linear-gradient(180deg, #170c2b 0%, #0f0a19 45%, #0c0b0f 70%, #12140a 100%); }
+#grid { position: absolute; left: 0; top: 0; }
+#bgUI { background:
+  radial-gradient(80% 32% at 50% 0%, rgba(120,58,220,.42), rgba(120,58,220,0) 100%),
+  radial-gradient(60% 30% at 50% 100%, rgba(213,251,35,.07), rgba(213,251,35,0) 100%),
+  linear-gradient(180deg, #120d1d 0%, #0d0b13 40%, #0b0a10 100%); }
+#bgWin { background: radial-gradient(60% 45% at 50% 42%, #3a1a72 0%, #1d0d3a 55%, #0d0718 100%); overflow: hidden; }
+#rays { position: absolute; left: -760px; top: -1040px; width: 2600px; height: 2600px;
+  background: repeating-conic-gradient(from 0deg at 50% 50%, rgba(170,110,255,.20) 0deg 7.5deg, rgba(0,0,0,0) 7.5deg 15deg);
+  -webkit-mask-image: radial-gradient(circle, #000 0%, rgba(0,0,0,.7) 30%, transparent 62%); mask-image: radial-gradient(circle, #000 0%, rgba(0,0,0,.7) 30%, transparent 62%); }
+#bgEnd { background:
+  radial-gradient(75% 42% at 50% 0%, rgba(128,60,232,.55), rgba(128,60,232,0) 100%),
+  radial-gradient(50% 30% at 50% 74%, rgba(213,251,35,.10), rgba(213,251,35,0) 100%),
+  linear-gradient(180deg, #160c28 0%, #0e0a17 50%, #0b0a10 100%); }
+#vignette { pointer-events: none; background: radial-gradient(120% 95% at 50% 50%, rgba(0,0,0,0) 62%, rgba(0,0,0,.45) 100%); }
+#flash { background: radial-gradient(circle at 50% 45%, #fbffe0 0%, #e3ff6a 35%, #d5fb23 100%); opacity: 0; }
+
+/* ---------- 1. intro (spacing: chip 115 · title 213–370 · tag 400–520 · coin 600–950 · COINFLIP! 1020–1234) ---------- */
+#chip { position: absolute; left: 50%; top: 115px; height: 58px; padding: 0 26px 0 20px; display: flex; align-items: center; gap: 12px;
+  border-radius: 999px; background: rgba(18,14,28,.65); box-shadow: inset 0 0 0 2px rgba(213,251,35,.42);
+  font-size: 25px; font-weight: 600; letter-spacing: .17em; text-transform: uppercase; color: var(--lime); white-space: nowrap; }
+#chip svg { width: 32px; height: 26px; color: var(--lime); }
+#title { top: 203px; height: 177px; }
+#title .word { font-size: 196px; line-height: 216px; }
+#tag { position: absolute; left: 50%; top: 400px; height: 120px; }
+#tagBg { position: absolute; inset: 0 -38px; background: var(--lime); transform: skewX(-12deg); transform-origin: 0 50%; border-radius: 4px; box-shadow: 0 12px 30px rgba(0,0,0,.35); }
+#tag .mask { position: relative; width: auto; height: 120px; padding: 0 4px; }
+#tag .word { font-size: 118px; line-height: 144px; color: var(--ink); }
+#introFlip { top: 1010px; height: 236px; overflow: visible; }
+#introFlip .word { font-size: 268px; line-height: 290px; }
+
+/* ---------- 2–4. UI (header 0–300 · panel 320–1250) ---------- */
+#hdr { position: absolute; left: 0; top: 0; width: 1080px; height: 310px; }
+#hdrCall { top: 128px; height: 136px; }
+#hdrCall .word { font-size: 150px; line-height: 166px; }
+#hdrCall span { display: inline-block; }
+#hdrOne { top: 128px; height: 136px; }
+#hdrOne .word { font-size: 150px; line-height: 166px; }
+#hdrStreak { position: absolute; left: 0; top: 0; width: 1080px; height: 310px; }
+#streakLabel { position: absolute; left: 0; top: 78px; width: 1080px; text-align: center; font-size: 25px; font-weight: 600; letter-spacing: .32em; color: #cfccd9; text-transform: uppercase; }
+#multWrap { position: absolute; left: 0; top: 122px; width: 1080px; height: 158px; }
+.mult { position: absolute; left: 0; top: 0; width: 1080px; height: 158px; text-align: center; font-size: 186px; line-height: 195px; }
+#multEcho { color: transparent; -webkit-text-stroke: 3px rgba(213,251,35,.55); text-shadow: none; }
+
+#panel { position: absolute; left: 90px; top: 320px; width: 900px; height: 930px; border-radius: 40px;
+  background: linear-gradient(180deg, #1f1d29 0%, #191722 55%, #16141e 100%);
+  box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.07), 0 40px 90px rgba(0,0,0,.55); }
+#dots { position: absolute; left: 46px; top: 470px; width: 808px; height: 56px; border-radius: 28px; background: rgba(255,255,255,.045); }
+.dot { position: absolute; top: 14px; width: 28px; height: 28px; border-radius: 50%; background: #3a3747; }
+.dot img { position: absolute; inset: -2px; width: 32px; height: 32px; opacity: 0; }
+.btn { position: absolute; top: 560px; width: 394px; height: 82px; border-radius: 16px; display: flex; align-items: center; justify-content: space-between; padding: 0 26px; font-size: 30px; font-weight: 600; }
+.btn svg { width: 26px; height: 26px; }
+.btn.heads { left: 46px; background: var(--purple); color: #f6eeff; }
+.btn.tails { left: 460px; background: var(--gold); color: #2b1d00; }
+.row.labels { position: absolute; left: 46px; top: 668px; width: 808px; display: flex; justify-content: space-between; align-items: center; font-size: 24px; font-weight: 500; color: #a9a5b6; }
+.cont { display: flex; align-items: center; gap: 14px; }
+.toggle { position: relative; width: 56px; height: 32px; border-radius: 16px; background: var(--lime); display: inline-block; }
+.toggle b { position: absolute; right: 4px; top: 4px; width: 24px; height: 24px; border-radius: 50%; background: #11101a; }
+.input { position: absolute; left: 46px; top: 708px; width: 808px; height: 82px; border-radius: 16px; background: #13111a; box-shadow: inset 0 0 0 2px #262333; display: flex; align-items: center; gap: 14px; padding: 0 14px 0 22px; }
+.input .usd { width: 34px; height: 34px; border-radius: 50%; background: #1ec77b; color: #fff; font-style: normal; font-size: 20px; font-weight: 700; display: grid; place-items: center; }
+.input .val { flex: 1; font-size: 30px; font-weight: 600; }
+.input .mini { width: 54px; height: 54px; border-radius: 12px; background: #262333; display: grid; place-items: center; font-size: 22px; color: #e8e5f0; }
+#cashout { position: absolute; left: 46px; top: 818px; width: 808px; height: 82px; border-radius: 16px; background: #22202b; overflow: hidden; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; font-size: 30px; font-weight: 600; color: #6f6b7d; }
+#cashFill { position: absolute; inset: 0; background: linear-gradient(90deg, #d5fb23 0%, #c2ea0c 100%); opacity: 0; box-shadow: 0 0 40px rgba(213,251,35,.4); }
+#cashout span { position: relative; }
+#dim { position: absolute; left: 0; top: 540px; width: 900px; height: 390px; border-radius: 0 0 40px 40px; background: rgba(11,9,16,.62); opacity: 0; }
+#tap { position: absolute; left: 0; top: 0; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 50%; background: rgba(255,255,255,.35); box-shadow: 0 0 0 3px rgba(255,255,255,.55); opacity: 0; }
+
+/* ---------- 5. big win (top coin 150–390 · BIG WIN! 440–632 · amount 672–829 · pill 872–938 · row 990–1062) ---------- */
+#winTitle { top: 430px; height: 212px; overflow: visible; }
+#winTitle .word { font-size: 240px; line-height: 260px; }
+#winAmt { top: 664px; height: 172px; overflow: visible; }
+#winAmt .word { font-size: 196px; line-height: 211px; color: #fff; text-shadow: 0 2px 0 #e2dcf0, 0 4px 0 #c7bde0, 0 6px 0 #a996cf, 0 8px 0 #8b70bd, 0 20px 30px rgba(0,0,0,.55); }
+#winPill { position: absolute; left: 50%; top: 872px; height: 66px; padding: 0 30px; display: flex; align-items: center; gap: 18px; border-radius: 999px; background: rgba(18,12,32,.82); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.12); font-size: 32px; white-space: nowrap; }
+#winPill b { color: var(--lime); font-weight: 700; }
+#winPill i { width: 8px; height: 8px; border-radius: 50%; background: #8d86a0; }
+#winRow { position: absolute; left: 126px; top: 990px; width: 828px; height: 72px; }
+.rcoin { position: absolute; top: 0; width: 72px; height: 72px; border-radius: 50%; box-shadow: 0 0 0 3px var(--lime), 0 0 18px rgba(213,251,35,.45); }
+.rcoin img { width: 72px; height: 72px; display: block; }
+
+/* ---------- 6. end card (logo 170–230 · coin 320–620 · COINFLIP 690–914 · CTA 990–1090 · legal 1230) ---------- */
+#logo { position: absolute; left: 50%; top: 166px; height: 70px; display: flex; align-items: center; gap: 18px; font-size: 58px; font-weight: 700; letter-spacing: .14em; white-space: nowrap; }
+#logo svg { width: 70px; height: 56px; color: var(--lime); }
+#endTitle { top: 680px; height: 244px; }
+#endTitle .word { font-size: 280px; line-height: 300px; color: var(--lime); }
+#cta { position: absolute; left: 50%; top: 990px; height: 100px; padding: 0 48px 0 52px; display: flex; align-items: center; gap: 18px; border-radius: 999px; background: var(--lime); color: var(--ink); font-size: 40px; font-weight: 600; white-space: nowrap; box-shadow: 0 0 50px rgba(213,251,35,.35), 0 18px 40px rgba(0,0,0,.4); }
+#cta b { font-weight: 700; }
+#legal { position: absolute; left: 0; top: 1218px; width: 1080px; text-align: center; font-size: 22px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: #7e7a8c; }

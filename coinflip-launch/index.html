@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Coinflip Launch</title>
+<link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="goat" viewBox="170 175 710 570"><g fill="currentColor" stroke="currentColor" stroke-width="14" stroke-linejoin="round">
+    <path d="M285,193 L528,432 L528,726 L442,664 L386,426 L292,324 L257,361 L295,468 L188,355 Z"/>
+    <path d="M768,193 L859,355 L757,462 L796,361 L757,324 L597,497 L592,366 Z"/></g></symbol>
+  <symbol id="gem" viewBox="0 0 24 24"><path fill="currentColor" d="M6 4h12l4 6H2zM2 12h20L12 22z"/></symbol>
+  <symbol id="star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 1l2.6 7.3L22 11l-7.4 2.7L12 23l-2.6-9.3L2 11l7.4-2.7z"/></symbol>
+</defs></svg>
+
+<div id="stage">
+  <!-- backgrounds -->
+  <div id="bgIntro" class="bg"><canvas id="grid" width="1080" height="1350"></canvas></div>
+  <div id="bgUI" class="bg"></div>
+  <div id="bgWin" class="bg"><div id="rays"></div></div>
+  <div id="bgEnd" class="bg"></div>
+  <canvas id="fxBack" width="1080" height="1350"></canvas>
+
+  <!-- 1. intro -->
+  <div id="intro" class="scene">
+    <div id="chip"><svg><use href="#goat"/></svg><span>Goated Originals</span></div>
+    <div id="title" class="mask"><div class="word extrude">NEW ORIGINAL</div></div>
+    <div id="tag"><div id="tagBg"></div><div class="mask"><div class="word">RELEASED</div></div></div>
+    <div id="introFlip" class="mask"><div class="word lime-purple">COINFLIP!</div></div>
+  </div>
+
+  <!-- 2–4. game UI -->
+  <div id="ui" class="scene">
+    <div id="hdr">
+      <div id="hdrCall" class="mask"><div class="word extrude"><span id="callA">CALL IT.</span> <span id="callB">FLIP IT.</span></div></div>
+      <div id="hdrStreak"><div id="streakLabel">STREAK 1 / 20</div><div id="multWrap"><div id="multEcho" class="mult">1.96×</div><div id="mult" class="mult">1.96×</div></div></div>
+      <div id="hdrOne" class="mask"><div class="word extrude">ONE MORE…</div></div>
+    </div>
+    <div id="panel">
+      <div id="dots"></div>
+      <div id="btnHeads" class="btn heads"><span>Bet Heads</span><svg><use href="#gem"/></svg></div>
+      <div id="btnTails" class="btn tails"><span>Bet Tails</span><svg><use href="#star"/></svg></div>
+      <div class="row labels"><span>Bet Amount</span><span class="cont">Continuous <i class="toggle"><b></b></i></span></div>
+      <div class="input"><i class="usd">$</i><span class="val">10.00</span><span class="mini">½</span><span class="mini">2×</span></div>
+      <div id="cashout"><div id="cashFill"></div><span class="lbl">Cash Out</span><span id="cashAmt"></span></div>
+      <div id="dim"></div>
+      <div id="tap"></div>
+    </div>
+  </div>
+
+  <!-- 5. big win -->
+  <div id="win" class="scene">
+    <div id="winTitle" class="mask"><div class="word lime-purple">BIG WIN!</div></div>
+    <div id="winAmt" class="mask"><div class="word">$10,035.20</div></div>
+    <div id="winPill"><b>1,003.52×</b><i></i><span>10 flips in a row</span></div>
+    <div id="winRow"></div>
+  </div>
+
+  <!-- 6. end card -->
+  <div id="end" class="scene">
+    <div id="logo"><svg><use href="#goat"/></svg><span>GOATED</span></div>
+    <div id="endTitle" class="mask"><div class="word">COINFLIP</div></div>
+    <div id="cta"><span>Play now on goated.com</span><b>→</b></div>
+    <div id="legal">18+ · Play responsibly</div>
+  </div>
+
+  <canvas id="fxFront" width="1080" height="1350"></canvas>
+  <div id="flash"></div>
+  <div id="vignette"></div>
+</div>
+<script src="src/cues.js"></script>
+<script src="src/main.js"></script>
+</body>
+</html>
