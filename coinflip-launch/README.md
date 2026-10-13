@@ -12,7 +12,11 @@ A 15-second, 1080×1350 (4:5), 60 fps launch video for the Goated Original **Coi
   - Game: the header (CALL IT. FLIP IT. → the streak multiplier → ONE MORE…) has its own band above the panel. The tossed coin never reaches the header text.
   - BIG WIN: the top coin, title, amount, pill and the row of ten coins are stacked evenly.
   - End card: GOATED, the coin, COINFLIP and the button are spaced evenly. The button moves up into the gap the removed line left.
-- **End card:** the COINFLIP title is flat lime with no purple drop shadow, and the "Call it. Flip it. Chain it up to 1,027,604×" line is gone. "Play now on goated.com →" and "18+ · Play responsibly" stay.
+- **Titles:** every title is set in Schabo Condensed at its true weight, the same as in the Order Up video. None has a purple drop shadow:
+  - COINFLIP!, BIG WIN! and the end-card COINFLIP are flat lime.
+  - NEW ORIGINAL, CALL IT. FLIP IT., ONE MORE… and the win amount are flat white.
+  - Only the climbing multiplier keeps a 3D edge, in darker lime, like the 1000× in Order Up.
+- **End card:** the "Call it. Flip it. Chain it up to 1,027,604×" line is gone. "Play now on goated.com →" and "18+ · Play responsibly" stay.
 
 The coin faces are the supplied art in `assets/coins/`: the purple gem is heads and the gold shuriken is tails.
 
@@ -65,4 +69,4 @@ npm run preview          # http://localhost:8080 (click to play with sound)
 - `render.mjs`: a pool of headless Chromium workers. Each frame is the average of 3–10 sub-frames over a 180° shutter, with more on the tosses and hits. Frames are encoded in near-lossless chunks, then joined, given light grain so the purple gradients don't band, and muxed with the soundtrack.
 - `audio/build_soundtrack.py`: only the 15-second excerpt used is kept in the repo (`audio/lovesick-0m46.754-1m01.754.flac`). It gets a 12 ms fade-in and a 0.6 s fade-out, is normalised to −14 LUFS, and is soft-limited under −1 dBFS.
 
-Fonts: Schabo Condensed (titles) and Geist (UI and secondary). Licences are in `assets/fonts/`.
+Fonts: Schabo Condensed (titles) and Geist (UI and secondary). Licences are in `assets/fonts/`. Schabo has a single weight, so every Schabo element sets `font-weight: 400` and the stage sets `font-synthesis: none`. Otherwise the browser fakes a bold on top of it, inherited from the UI's 600 weight.

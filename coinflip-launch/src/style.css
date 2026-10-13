@@ -12,18 +12,20 @@
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; background: #000; }
 body { width: 1080px; height: 1350px; overflow: hidden; }
-#stage { position: relative; width: 1080px; height: 1350px; overflow: hidden; background: #0b0910; color: #fff; font-family: 'Geist', sans-serif; font-weight: 600; -webkit-font-smoothing: antialiased; }
+#stage { position: relative; width: 1080px; height: 1350px; overflow: hidden; background: #0b0910; color: #fff; font-family: 'Geist', sans-serif; font-weight: 600; font-synthesis: none; -webkit-font-smoothing: antialiased; }
 .bg, .scene, #fxBack, #fxFront, #flash, #vignette { position: absolute; left: 0; top: 0; width: 1080px; height: 1350px; }
 .scene { pointer-events: none; }
 
 /* Schabo uses typo metrics: caps sit 0.1em above the line-box centre, so every
-   Schabo box sets line-height = box height + 0.2em to centre its caps. */
+   Schabo box sets line-height = box height + 0.2em to centre its caps.
+   Schabo has a single weight (400): set it explicitly, or the stage's 600 makes
+   the browser fake a bold on top of it. */
 .mask { position: absolute; left: 0; width: 1080px; overflow: hidden; display: flex; justify-content: center; }
-.word { font-family: 'Schabo'; letter-spacing: .01em; white-space: nowrap; }
+.word { font-family: 'Schabo'; font-weight: 400; letter-spacing: .01em; white-space: nowrap; }
 .word .ch { display: inline-block; }
-.extrude { color: #fff; text-shadow: 0 1px 0 #dcd9e3, 0 2px 0 #cdc9d6, 0 3px 0 #bdb8c8, 0 4px 0 #aea9bb, 0 5px 0 #a09aae, 0 6px 0 #918ba1, 0 7px 0 #837c94, 0 16px 26px rgba(0,0,0,.5); }
-.lime-purple { color: var(--lime); text-shadow: 0 2px 0 #9447f4, 0 4px 0 #8a3ced, 0 6px 0 #7f33e3, 0 8px 0 #742bd6, 0 10px 0 #6924c8, 0 12px 0 #5e1eba, 0 14px 0 #5419ab, 0 24px 34px rgba(0,0,0,.55); }
-.mult { font-family: 'Schabo'; color: var(--lime); letter-spacing: .01em; white-space: nowrap; text-shadow: 0 2px 0 #bfe016, 0 4px 0 #a8c60f, 0 6px 0 #91ab08, 0 8px 0 #7a9002, 0 10px 0 #667800, 0 0 50px rgba(213,251,35,.35); }
+.title-white { color: #fff; }
+.title-lime { color: var(--lime); }
+.mult { font-family: 'Schabo'; font-weight: 400; color: var(--lime); letter-spacing: .01em; white-space: nowrap; text-shadow: 0 2px 0 #bfe016, 0 4px 0 #a8c60f, 0 6px 0 #91ab08, 0 8px 0 #7a9002, 0 10px 0 #667800, 0 0 50px rgba(213,251,35,.35); }
 
 /* ---------- backgrounds ---------- */
 #bgIntro { background:
@@ -102,7 +104,7 @@ body { width: 1080px; height: 1350px; overflow: hidden; }
 #winTitle { top: 430px; height: 212px; overflow: visible; }
 #winTitle .word { font-size: 240px; line-height: 260px; }
 #winAmt { top: 664px; height: 172px; overflow: visible; }
-#winAmt .word { font-size: 196px; line-height: 211px; color: #fff; text-shadow: 0 2px 0 #e2dcf0, 0 4px 0 #c7bde0, 0 6px 0 #a996cf, 0 8px 0 #8b70bd, 0 20px 30px rgba(0,0,0,.55); }
+#winAmt .word { font-size: 196px; line-height: 211px; color: #fff; }
 #winPill { position: absolute; left: 50%; top: 872px; height: 66px; padding: 0 30px; display: flex; align-items: center; gap: 18px; border-radius: 999px; background: rgba(18,12,32,.82); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.12); font-size: 32px; white-space: nowrap; }
 #winPill b { color: var(--lime); font-weight: 700; }
 #winPill i { width: 8px; height: 8px; border-radius: 50%; background: #8d86a0; }
