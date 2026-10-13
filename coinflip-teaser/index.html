@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Coinflip Teaser</title>
+<link rel="stylesheet" href="src/style.css">
+<script type="importmap">
+{ "imports": { "three": "./node_modules/three/build/three.module.js", "three/addons/": "./node_modules/three/examples/jsm/" } }
+</script>
+</head>
+<body>
+<div id="stage">
+  <canvas id="gl" width="1920" height="1080"></canvas>
+  <canvas id="fx" width="1920" height="1080"></canvas>
+  <div id="title">
+    <div class="mask"><div class="word"><span class="coin">COIN</span><span class="flip">FLIP</span></div></div>
+    <div id="sub"><span>Coming soon</span></div>
+  </div>
+  <div id="vignette"></div>
+  <div id="startHint">Click to play with sound</div>
+</div>
+<script src="src/cues.js"></script>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "coinflip-teaser",
+  "private": true,
+  "type": "module",
+  "description": "10s teaser for Goated's next Original, Coinflip.",
+  "dependencies": {
+    "playwright": "^1.56.1",
+    "sharp": "^0.34.5",
+    "three": "^0.186.1"
+  },
+  "scripts": {
+    "audio": "python3 -P audio/build_soundtrack.py",
+    "render": "node render.mjs",
+    "render:clean": "node render.mjs --clean --start 6 && node tools/splice-clean.mjs",
+    "stills": "node tools/stills.mjs",
+    "preview": "node tools/serve.mjs 8080"
+  }
+}

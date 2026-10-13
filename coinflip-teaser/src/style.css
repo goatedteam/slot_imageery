@@ -1,0 +1,24 @@
+@font-face { font-family: 'Schabo'; src: url('../assets/fonts/SchaboCondensed.otf') format('opentype'); font-display: block; }
+@font-face { font-family: 'Geist'; src: url('../assets/fonts/Geist-Medium.otf') format('opentype'); font-weight: 500; font-display: block; }
+@font-face { font-family: 'Geist'; src: url('../assets/fonts/Geist-SemiBold.otf') format('opentype'); font-weight: 600; font-display: block; }
+
+:root { --lime: #d5fb23; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: #000; }
+body { width: 1920px; height: 1080px; overflow: hidden; }
+#stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #000; color: #fff; font-family: 'Geist', sans-serif; -webkit-font-smoothing: antialiased; }
+#gl, #fx { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+
+/* Title: Schabo uses typo metrics, so line-height = box height + 0.2em centres the caps. */
+#title { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; pointer-events: none; }
+#title .mask { position: absolute; left: 0; top: 596px; width: 1920px; height: 236px; overflow: hidden; display: flex; justify-content: center; }
+#title .word { font-family: 'Schabo'; font-size: 270px; line-height: 290px; height: 236px; letter-spacing: .01em; white-space: nowrap; }
+#title .word span { display: inline-block; }
+#title .flip { color: var(--lime); }
+#sub { position: absolute; left: 0; top: 858px; width: 1920px; display: flex; justify-content: center; }
+#sub span { font-size: 48px; font-weight: 500; letter-spacing: .01em; color: #e6e4ec; }
+
+#vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(120% 110% at 50% 50%, rgba(0,0,0,0) 60%, rgba(0,0,0,.5) 100%); }
+#startHint { position: absolute; left: 50%; bottom: 40px; transform: translateX(-50%); padding: 12px 22px; border-radius: 999px; background: rgba(255,255,255,.1); font-size: 20px; display: none; }
+body.preview #startHint { display: block; }
+body.preview.playing #startHint { display: none; }
