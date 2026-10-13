@@ -194,32 +194,12 @@
 
   // ---------------------------------------------------------------- choreography data
   const MULTS = Array.from({ length: 10 }, (_, k) => 0.98 * Math.pow(2, k + 1));
-  const LANDS = [...C.lands, C.tenth];
-  const DUR = LANDS.map((l, k) => (k === 9 ? l - (C.oneMore + 0.09) : k === 0 ? 0.62 : LANDS[k] - LANDS[k - 1] > 0.5 ? 0.5 : 0.29));
-  const START = LANDS.map((l, k) => l - DUR[k]);
-  const TARGET = [];
-  {
-    let th = 0; // landed heads in the intro
-    C.calls.forEach((c, k) => {
-      const want = c === 'H' ? 0 : Math.PI;
-      const turns = k === 9 ? 6 : DUR[k] > 0.45 ? 3 : 2;
-      let tgt = Math.floor(th / TAU) * TAU + turns * TAU + want;
-      if (tgt - th < turns * TAU - 0.01) tgt += TAU;
-      TARGET.push([th, tgt]);
-      th = tgt;
-    });
-  }
+  // the flip schedule lives in cues.js, shared with the sound design
+  const { lands: LANDS, dur: DUR, start: START, target: TARGET } = C.toss;
   const SLOT = { x: 540, y: 320 + 270, R: 140 };
   const INTRO = { x: 540, y: 775, R: 175 };
 
-  /** slow-motion time warp for the last flip: lingers at the top over the track's dead stop */
-  function warp(p) {
-    // fast up, hang, fast down
-    const a = 0.32, b = 0.8; // rise ends at a, fall starts at b
-    if (p < a) return 0.42 * outCubic(p / a);
-    if (p < b) return 0.42 + 0.16 * ((p - a) / (b - a));
-    return 0.58 + 0.42 * inCubic((p - b) / (1 - b));
-  }
+  const warp = C.warp;
 
   /** main coin state at time t */
   function mainCoin(t) {
@@ -252,7 +232,7 @@
     const theta = lerp(th0, th1, pw) + (t > LANDS[k] ? 0.1 * Math.exp(-(t - LANDS[k]) * 10) * Math.sin((t - LANDS[k]) * 32) : 0);
     // win glow ring: appears on landing, dims while idle, gone when the next toss starts
     let ring = 0;
-    if (t >= LANDS[k]) ring = 0.35 + 0.65 * decay(t, LANDS[k], 4);
+    if (t >= LANDS[k]) ring = 0.35 + 0.65 * Math.max(decay(t, LANDS[k], 4), k === 9 ? decay(t, C.rehit, 5) : 0);
     else if (k > 0) ring = (0.35 + 0.65 * decay(t, LANDS[k - 1], 4)) * (1 - prog(t, START[k], 0.08));
     return { x: 540, y, R, theta, ring, shadow: { y: SLOT.y + SLOT.R + 16, s: 1.05 - 0.35 * lift, a: 1 - 0.6 * lift }, sheen: last ? 0.1 * bump(prog(t, C.stop - 0.2, 0.5)) : 0 };
   }
@@ -374,11 +354,18 @@
       setText(el.mult, fmtMult(MULTS[k]));
       setText(el.multEcho, fmtMult(MULTS[k]));
       const big = k === 9 ? 1.1 : 1;
-      const punch = 1 + (k === 9 ? 0.5 : 0.28) * (1 - outExpo(prog(t, tl, 0.4)));
+      const punch = 1 + (k === 9 ? 0.5 : 0.28) * (1 - outExpo(prog(t, tl, 0.4))) + (k === 9 ? 0.16 * decay(t, C.rehit, 9) : 0);
       set(el.mult, 'transform', `scale(${(punch * big).toFixed(4)})`);
-      const pe = prog(t, tl, 0.55);
-      set(el.multEcho, 'opacity', pe > 0 && pe < 1 ? (0.9 * (1 - pe)).toFixed(3) : '0');
-      set(el.multEcho, 'transform', `scale(${((1 + 0.24 * outCubic(pe)) * big).toFixed(4)})`);
+      if (k === 9 && t < C.rehit) {
+        // the outline echo holds behind the number through the hold
+        const pe = prog(t, tl, C.rehit - tl);
+        set(el.multEcho, 'opacity', (0.9 * (1 - smooth(clamp((pe - 0.6) / 0.4)))).toFixed(3));
+        set(el.multEcho, 'transform', `scale(${((1 + 0.17 * outQuart(prog(t, tl, 0.6)) + 0.04 * pe) * big).toFixed(4)})`);
+      } else {
+        const pe = prog(t, k === 9 ? C.rehit : tl, 0.55);
+        set(el.multEcho, 'opacity', pe > 0 && pe < 1 ? (0.9 * (1 - pe)).toFixed(3) : '0');
+        set(el.multEcho, 'transform', `scale(${((1 + 0.24 * outCubic(pe)) * big).toFixed(4)})`);
+      }
       set(el.streakLabel, 'opacity', clamp((t - tl) / 0.12 + (k > 0 ? 1 : 0)).toFixed(3));
     }
 
@@ -502,12 +489,15 @@
     }
 
     // the 10th flip: win burst
-    const pb = prog(t, C.tenth, 0.55);
+    // bursts out fast, then lingers and drifts through the hold so the frame stays lit, fading into the drop
+    const pb = prog(t, C.tenth, C.bigWin - C.tenth);
     if (pb > 0 && pb < 1) {
+      const pr = 0.74 * outQuart(prog(t, C.tenth, 0.7)) + 0.12 * pb;
+      const fade = 1 - smooth(clamp((pb - 0.6) / 0.4));
       for (const b of BURST) {
-        const r0 = SLOT.R + 30 + 120 * outCubic(pb), r1 = r0 + b.len * (1 - pb);
+        const r0 = SLOT.R + 30 + 120 * pr, r1 = r0 + b.len * (1 - 0.5 * pr);
         fxF.strokeStyle = b.col;
-        fxF.globalAlpha = 1 - pb;
+        fxF.globalAlpha = fade;
         fxF.lineWidth = 5;
         fxF.lineCap = 'round';
         fxF.beginPath();
@@ -516,9 +506,16 @@
         fxF.stroke();
       }
       fxF.globalAlpha = 1;
-      fxF.strokeStyle = `rgba(46,230,166,${(0.9 * (1 - pb)).toFixed(3)})`;
-      fxF.lineWidth = 8 * (1 - pb) + 2;
-      fxF.beginPath(); fxF.arc(SLOT.x, SLOT.y, SLOT.R + 40 + 200 * outCubic(pb), 0, TAU); fxF.stroke();
+      fxF.strokeStyle = `rgba(46,230,166,${(0.9 * fade).toFixed(3)})`;
+      fxF.lineWidth = 8 * (1 - pr) + 3;
+      fxF.beginPath(); fxF.arc(SLOT.x, SLOT.y, SLOT.R + 40 + 200 * pr, 0, TAU); fxF.stroke();
+    }
+    // a second, quicker ring when the hit returns after the hold
+    const ph = prog(t, C.rehit, 0.4);
+    if (ph > 0 && ph < 1) {
+      fxF.strokeStyle = `rgba(46,230,166,${(0.75 * (1 - ph)).toFixed(3)})`;
+      fxF.lineWidth = 6 * (1 - ph) + 1.5;
+      fxF.beginPath(); fxF.arc(SLOT.x, SLOT.y, SLOT.R + 30 + 170 * outCubic(ph), 0, TAU); fxF.stroke();
     }
 
     // BIG WIN: top coin, raining coins, confetti
@@ -562,7 +559,7 @@
   }
 
   // camera shake on the hits
-  const HITS = [[C.title, 6, 9], [C.released, 4, 10], [C.coinLand, 7, 9], [C.coinflip, 9, 8], ...LANDS.slice(0, 9).map((l) => [l, 2.5, 12]), [C.tenth, 9, 7], [C.bigWin, 14, 5], [C.end + 0.5, 4, 9]];
+  const HITS = [[C.title, 6, 9], [C.released, 4, 10], [C.coinLand, 7, 9], [C.coinflip, 9, 8], ...LANDS.slice(0, 9).map((l) => [l, 2.5, 12]), [C.tenth, 9, 7], [C.rehit, 4, 10], [C.bigWin, 14, 5], [C.end + 0.5, 4, 9]];
   function shake(t) {
     let a = 0;
     for (const [t0, amp, k] of HITS) a += amp * decay(t, t0, k);
@@ -573,7 +570,8 @@
     globalT = t;
     frameT = Math.round(t * C.fps) / C.fps;
     const [sx, sy, a] = shake(t);
-    set(cam, 'transform', `translate(${sx.toFixed(2)}px, ${sy.toFixed(2)}px) scale(${(1 + a * 2.2 / 1080).toFixed(4)})`);
+    const push = t >= C.tenth && t < C.bigWin ? 0.06 * inCubic(prog(t, C.tenth + 0.2, C.bigWin - C.tenth - 0.2)) : 0;
+    set(cam, 'transform', `translate(${sx.toFixed(2)}px, ${(sy + push * 245).toFixed(2)}px) scale(${(1 + a * 2.2 / 1080 + push).toFixed(4)})`);
     renderBackgrounds(t);
     renderIntro(t);
     renderUI(t);
@@ -588,7 +586,7 @@
   const BLUR = [
     [C.coinUp - 0.02, C.coinLand + 0.15, 10], [C.coinflip - 0.05, C.coinflip + 0.25, 8], [C.toUI - 0.05, C.toUI + 0.5, 8],
     ...LANDS.map((l, k) => [START[k] - 0.02, l + 0.12, k === 9 ? 10 : 10]),
-    [C.bigWin - 0.02, C.end, 6], [C.end - 0.05, C.end + 0.6, 10],
+    [C.rehit - 0.02, C.rehit + 0.3, 6], [C.bigWin - 0.02, C.end, 6], [C.end - 0.05, C.end + 0.6, 10],
     [-1, 0.2, 6], [C.released - 0.05, C.released + 0.2, 6],
   ];
   function subframesAt(t) {

@@ -38,8 +38,8 @@ with tempfile.TemporaryDirectory() as td:
     lag = lag if lag < n // 2 else lag - n
     print(f'A/V: audio offset vs soundtrack.wav = {lag / sr * 1000:+.2f} ms')
 
-    times = [0.05, 0.75, 1.3, 1.75, 2.1, 2.5, 3.0, 3.6, 4.3, 5.45, 6.1, 7.45,
-             8.15, 9.15, 9.7, 10.25, 10.55, 10.9, 11.6, 12.4, 13.0, 13.7, 14.3, 14.95]
+    times = [0.05, 0.75, 1.75, 2.5, 3.0, 4.3, 5.45, 7.45, 8.15, 9.15, 9.7, 10.25,
+             10.6, 11.3, 11.85, 12.25, 13.0, 13.7, 14.4, 15.05, 15.9, 16.8, 17.6, 18.3]
     tiles = []
     for t in times:
         p = pathlib.Path(td) / f'f_{t}.png'

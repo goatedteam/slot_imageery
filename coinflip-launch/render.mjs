@@ -18,6 +18,7 @@ import { mkdirSync, writeFileSync, existsSync, rmSync } from 'fs';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import os from 'os';
+import './src/cues.js'; // sets globalThis.CUES (timing shared with the page)
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const argv = process.argv.slice(2);
@@ -31,7 +32,7 @@ const SHUTTER = Number(opt('shutter', 0.5));  // fraction of the frame interval 
 const WORKERS = Number(opt('workers', Math.max(1, Math.min(4, os.cpus().length))));
 const BLOCK = Number(opt('block', 24));
 const START = Number(opt('start', 0));
-const END = Number(opt('end', 15));
+const END = Number(opt('end', globalThis.CUES.duration));
 const CRF = String(opt('crf', 16));
 const GRAIN = Number(opt('grain', 2));        // luma noise strength; >2 balloons the bitrate
 const OUT = path.resolve(root, opt('out', `out/coinflip-launch-1080x1350p${FPS}.mp4`));

@@ -1,6 +1,6 @@
 # Coinflip launch video
 
-A 15-second, 1080×1350 (4:5), 60 fps launch video for the Goated Original **Coinflip**. It recreates the live Coinflip promo shot for shot, with every frame re-spaced and the edit synced to Mura Masa – Love$ick ft. A$AP Rocky.
+An 18-second (18.35 s), 1080×1350 (4:5), 60 fps launch video for the Goated Original **Coinflip**. It recreates the live Coinflip promo shot for shot, with every frame re-spaced and the edit synced to Mura Masa – Love$ick ft. A$AP Rocky.
 
 **Video:** [`dist/coinflip-launch-1080x1350p60.mp4`](dist/coinflip-launch-1080x1350p60.mp4). Poster frames are in `dist/`: [title](dist/poster-title.jpg), [BIG WIN](dist/poster-bigwin.jpg), [end card](dist/poster-endcard.jpg).
 
@@ -17,12 +17,19 @@ A 15-second, 1080×1350 (4:5), 60 fps launch video for the Goated Original **Coi
   - NEW ORIGINAL, CALL IT. FLIP IT., ONE MORE… and the win amount are flat white.
   - Only the climbing multiplier keeps a 3D edge, in darker lime, like the 1000× in Order Up.
 - **End card:** the "Call it. Flip it. Chain it up to 1,027,604×" line is gone. "Play now on goated.com →" and "18+ · Play responsibly" stay.
+- **Holds:**
+  - After the 10th flip lands, the picture holds on 10 IN A ROW / 1,003.52× for two more beats (1.35 s) before BIG WIN. The burst ring and the outline echo linger, and the camera pushes in slowly.
+  - The end card holds for two more seconds.
+- **Sound effects** on the game panel:
+  - a tap on every Bet Heads / Bet Tails press, panned to the button;
+  - a flick and a fluttering spin for every flip;
+  - a clink on every landing, and a win chime that climbs the scale with the streak.
 
 The coin faces are the supplied art in `assets/coins/`: the purple gem is heads and the gold shuriken is tails.
 
 ## Beat map
 
-The music is Love$ick from 0:46.754 to 1:01.754. That window opens on a section downbeat, stops dead just before 10 s, and drops into the track's heaviest bass at 10.78 s, right where BIG WIN lands. At 89 BPM half-time, a beat is 0.674 s and a bar is 2.696 s.
+The music is Love$ick from 0:46.754 to 1:03.756, with a two-beat freeze cut in at 0:57.18. That window opens on a section downbeat and stops dead just before 10 s. The 10th coin lands on the hit that leads into the drop. There the music freezes into a reverb tail while the picture holds, then the hit returns and the track's heaviest bass drops on BIG WIN. At 89 BPM half-time, a beat is 0.674 s and a bar is 2.696 s.
 
 | Time | Music | Picture |
 |---|---|---|
@@ -36,12 +43,17 @@ The music is Love$ick from 0:46.754 to 1:01.754. That window opens on a section 
 | 6.07 → 9.10 | beats, then eighths | flips 2–9 land on the beat, then twice as fast: 3.92× → 501.76× |
 | 9.44 | beat | ONE MORE…: the controls dim and the 10th flip goes up in slow motion |
 | 9.95 | the track stops dead | the coin hangs at the top of its arc |
-| 10.46 | riser | the 10th flip lands: 10 IN A ROW, 1,003.52× |
-| **10.78** | bass drop | lime flash, then BIG WIN! with raining coins and confetti; the amount counts up to $10,035.20 |
-| 11.46 | beat | the "1,003.52× • 10 flips in a row" pill |
-| 12.13 | beat | the count lands on $10,035.20 as the row of ten winning coins flips in |
-| **13.48** | bar 6 | flash to the end card: the coin drops in tails-up, then GOATED and COINFLIP |
-| 14.15 | beat | Play now on goated.com →, then the 18+ line, as the track fades out |
+| **10.43** | the hit before the drop | the 10th flip lands: 10 IN A ROW, 1,003.52×, with a big clink, chime and sparkle; the music freezes |
+| 10.43 → 11.78 | two-beat freeze | the frame holds on 1,003.52× with its burst ring, pushing in slowly as a swell builds |
+| 11.78 | the hit returns | the multiplier punches and the ring flares |
+| **12.13** | bass drop | lime flash, then BIG WIN! with raining coins and confetti; the amount counts up to $10,035.20 |
+| 12.81 | beat | the "1,003.52× • 10 flips in a row" pill |
+| 13.48 | beat | the count lands on $10,035.20 as the row of ten winning coins flips in |
+| **14.83** | bar | flash to the end card: the coin drops in tails-up, then GOATED and COINFLIP |
+| 15.50 | beat | Play now on goated.com →, then the 18+ line |
+| 15.5 → 18.35 | — | the end card holds; the track fades out from the last bar line (17.52) |
+
+The game sounds follow the same schedule. Taps come 60 ms before each flip, and each landing gets a clink and a chime.
 
 ## Run it
 
@@ -51,8 +63,8 @@ Requires Node 18+, Python 3 and ffmpeg on `PATH`.
 npm install
 pip install -r audio/requirements.txt   # tools/verify.py also needs Pillow
 
-npm run audio            # → out/soundtrack.wav (−14 LUFS)
-npm run render           # → out/coinflip-launch-1080x1350p60.mp4 (~6 min on 4 cores)
+npm run audio            # → out/soundtrack.wav: music edit + sound effects (−14 LUFS); add `-- --no-sfx` for music only
+npm run render           # → out/coinflip-launch-1080x1350p60.mp4 (~7 min on 4 cores)
 npm run verify           # frame count, loudness, A/V offset, out/verify_sheet.png
 npm run stills -- 5.4 10.9 14.9 --sheet   # review frames → out/stills/
 npm run preview          # http://localhost:8080 (click to play with sound)
@@ -60,13 +72,16 @@ npm run preview          # http://localhost:8080 (click to play with sound)
 
 ## How it's built
 
-- `src/cues.js`: the beat-locked timing.
+- `src/cues.js`: the beat-locked timing, including the flip schedule (taps, launches, landings, the coin's angle). The picture and the sound effects both read it.
 - `src/main.js`: the scene. Every frame is a pure function of `t`.
   - Type and UI are DOM.
   - The coins, particles and grid are drawn on two canvases.
   - The coin is 2.5D. The face art is squashed by cos θ as it flips, over a shaded rim, with a sheen that tracks the angle.
   - Counters follow the frame time, not the sub-frame time, so motion blur never smears the digits.
 - `render.mjs`: a pool of headless Chromium workers. Each frame is the average of 3–10 sub-frames over a 180° shutter, with more on the tosses and hits. Frames are encoded in near-lossless chunks, then joined, given light grain so the purple gradients don't band, and muxed with the soundtrack.
-- `audio/build_soundtrack.py`: only the 15-second excerpt used is kept in the repo (`audio/lovesick-0m46.754-1m01.754.flac`). It gets a 12 ms fade-in and a 0.6 s fade-out, is normalised to −14 LUFS, and is soft-limited under −1 dBFS.
+- `audio/build_soundtrack.py`:
+  - **Music:** only the excerpt used is kept in the repo (`audio/lovesick-0m46.754-1m03.756.flac`). The script cuts it at the 10th landing and fills the two-beat gap with a reverb freeze of the moment before plus a swell back into the hit.
+  - **Sound effects:** synthesised from the flip schedule. The spin's flutter follows the coin's on-screen rotation, so it slows down with the slow-motion 10th flip. The win chimes climb a G# minor pentatonic scale, picked to sit with the track.
+  - **Mastering:** the mix is normalised to −14 LUFS and soft-limited under −1 dBFS.
 
 Fonts: Schabo Condensed (titles) and Geist (UI and secondary). Licences are in `assets/fonts/`. Schabo has a single weight, so every Schabo element sets `font-weight: 400` and the stage sets `font-synthesis: none`. Otherwise the browser fakes a bold on top of it, inherited from the UI's 600 weight.
