@@ -2,7 +2,7 @@
 
 An 18-second (18.35 s), 1080×1350 (4:5), 60 fps launch video for the Goated Original **Coinflip**. It recreates the live Coinflip promo shot for shot, with every frame re-spaced and the edit synced to Mura Masa – Love$ick ft. A$AP Rocky.
 
-**Video:** [`dist/coinflip-launch-1080x1350p60.mp4`](dist/coinflip-launch-1080x1350p60.mp4). Poster frames are in `dist/`: [title](dist/poster-title.jpg), [BIG WIN](dist/poster-bigwin.jpg), [end card](dist/poster-endcard.jpg).
+**Video:** [`dist/coinflip-launch-1080x1350p60.mp4`](dist/coinflip-launch-1080x1350p60.mp4). Poster frames are in `dist/`: [title](dist/poster-title.jpg), [10 in a row](dist/poster-10-in-a-row.jpg), [BIG WIN](dist/poster-bigwin.jpg), [end card](dist/poster-endcard.jpg).
 
 ## Changes from the original promo
 
